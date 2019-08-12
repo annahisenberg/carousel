@@ -1,0 +1,37 @@
+.box {
+    border: 1px solid rgb(179, 177, 177);
+}
+
+section {
+    padding-top: 2rem;
+    background: rgba(236, 234, 234, 0.5);
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-item {
+    width: 200px;
+    background: white;
+    margin: 1rem;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.first-box {
+    border-top: 5px solid black;
+    background: transparent;
+}
+
+.dashes {
+    width: 2rem;
+    height: 0.15rem;
+    background: black;
+    margin: 0.15rem;
+    display: inline-block;
+}
+
+.arrows {
+    text-align: right;
+}
