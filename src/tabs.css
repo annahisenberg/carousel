@@ -1,0 +1,17 @@
+ul {
+    display: flex;
+    list-style: none;
+}
+
+ul li {
+    margin: 1rem;
+}
+
+li a {
+    color: black;
+    text-decoration: none;
+}
+
+.active {
+    border-bottom: 1px solid red;
+}
