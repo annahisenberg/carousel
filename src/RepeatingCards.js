@@ -16,7 +16,7 @@ export default class RepeatingCards extends Component {
             { id: 2, title: 'Installation', content: '@ @ @ @ @ @', src: graph },
         ];
 
-
+        // make each one its own component
         const oneCard = cards.map((card) =>
             <Card className="text-center">
                 <Card.Header>{card.title}</Card.Header>
