@@ -26,7 +26,8 @@ export default class RepeatingCards extends Component {
             currentRow: null
         };
         this.increase = this.increase.bind(this);
-        this.decrease = this.decrease.bind(this);
+        // this.decrease = this.decrease.bind(this);
+        this.addFour = this.addFour.bind(this);
     }
 
     componentWillMount() {
@@ -35,8 +36,9 @@ export default class RepeatingCards extends Component {
         if (cardsCopy.length > 4) {
             this.setState({
                 currentRow: cardsCopy.splice(this.state.start, this.state.end),
-                start: this.state.start + 4
             });
+
+            this.addFour();
         }
     }
 
@@ -55,20 +57,20 @@ export default class RepeatingCards extends Component {
         })
     }
 
-    minusFour() {
-        this.setState({
-            start: this.state.start - 4,
-            end: this.state.end - 4
-        })
-    }
+    // minusFour() {
+    //     this.setState({
+    //         start: this.state.start - 4,
+    //         end: this.state.end - 4
+    //     })
+    // }
 
-    decrease() {
-        let cardsCopy = [...this.state.cards];
+    // decrease() {
+    //     let cardsCopy = [...this.state.cards];
 
-        this.setState({
-            currentRow: cardsCopy.splice(this.state.start, this.state.end)
-        })
-    }
+    //     this.setState({
+    //         currentRow: cardsCopy.splice(this.state.start, this.state.end)
+    //     })
+    // }
 
     render() {
         const oneCard = this.state.currentRow.map((card) =>
