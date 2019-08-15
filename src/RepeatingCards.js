@@ -49,8 +49,25 @@ export default class RepeatingCards extends Component {
         })
     }
 
+    addFour() {
+        this.setState({
+            start: this.state.start + 4
+        })
+    }
+
+    minusFour() {
+        this.setState({
+            start: this.state.start - 4,
+            end: this.state.end - 4
+        })
+    }
+
     decrease() {
-        console.log('decrease')
+        let cardsCopy = [...this.state.cards];
+
+        this.setState({
+            currentRow: cardsCopy.splice(this.state.start, this.state.end)
+        })
     }
 
     render() {
