@@ -14,29 +14,39 @@ export default class Dropdown extends Component {
         };
     }
 
-    handleClick() {
-        if (!this.state.popupVisible) {
-            // attach/remove event handler
+    handleClick(e) {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
+        if (!this.state.popupVisible || !this.state.openModal) {
             document.addEventListener('click', this.handleOutsideClick, false);
-        } else {
-            document.removeEventListener('click', this.handleOutsideClick, false);
+        } 
+        
+        if (this.state.openModal) {
+            return this.setState({ openModal: !this.state.openModal });
         }
 
-        this.setState(prevState => ({
-            popupVisible: !prevState.popupVisible,
-        }));
+        this.setState({ popupVisible: !this.state.popupVisible });
     }
 
     handleOutsideClick(e) {
-        // ignore clicks on the component itself
-        if (this.node.contains(e.target)) {
-            return;
+        e.stopPropagation();
+
+        if (e.target.id.indexOf("popover") >= 0 || e.target.id.indexOf("button") >= 0) {
+            return
         }
 
-        this.handleClick();
+        document.removeEventListener('click', this.handleOutsideClick, false);
+
+        if (this.state.openModal) {
+            return this.setState({ openModal: !this.state.openModal });
+        }
+
+        this.setState({ popupVisible: !this.state.popupVisible });
     }
 
-    closeLightboxOpenModal() {
+    closeLightboxOpenModal(e) {
+        e.stopPropagation();
         this.setState({
             popupVisible: false,
             openModal: !this.state.openModal
@@ -47,21 +57,21 @@ export default class Dropdown extends Component {
         let firstLightbox;
         if (this.state.popupVisible) {
             firstLightbox = (
-                <div className="popover" style={{ background: "purple", padding: "5rem" }}>
-                    <p onClick={this.closeLightboxOpenModal} style={{ background: "lightgray" }}>I'm a popover</p>
+                <div className="popover" id="popover" onClick={(e)=>e.stopPropagation()} style={{ background: "purple", padding: "5rem" }}>
+                    <p onClick={this.closeLightboxOpenModal} id="button" style={{ background: "lightgray" }}>I'm a popover</p>
                 </div>
             )
-        }else{
-            firstLightbox =null;
+        } else {
+            firstLightbox = null;
         }
 
         return (
-            <div className="popover-container" ref={node => { this.node = node; }}>
+            <div className="popover-container">
                 <button onClick={this.handleClick}>Toggle Popover</button>
                 {firstLightbox}
                 {
                     this.state.openModal && (
-                        <div style={{ border: "1px solid black", padding: "4rem", background: "lightpink" }}>I'm a modal</div>
+                        <div id="popover"   style={{ border: "1px solid black", padding: "4rem", background: "lightpink" }}>I'm a modal</div>
                     )
                 }
             </div>
